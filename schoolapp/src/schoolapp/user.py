@@ -1,6 +1,5 @@
 import re
 from abc import abstractmethod, ABC
-from logging import raiseExceptions
 
 
 def validate_password(password):
@@ -19,3 +18,17 @@ def validate_email(email):
 
 
 
+class User (ABC):
+    def _init_(self, name ,email, password ):
+        self._name = name
+        self._email = validate_email(email)
+        self.__password = validate_password(password)
+
+
+    @abstractmethod
+    @property
+    def name(self):
+        return self._name
+
+    def generate_id(self):
+        pass
