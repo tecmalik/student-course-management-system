@@ -18,17 +18,25 @@ def validate_email(email):
 
 
 
-class User (ABC):
-    def _init_(self, name ,email, password ):
+class User(ABC):
+    def _init_(self, name: str ,email: str, password: str ):
         self._name = name
         self._email = validate_email(email)
         self.__password = validate_password(password)
 
-
-    @abstractmethod
     @property
-    def name(self):
+    def _name(self):
         return self._name
 
+
+    @abstractmethod
     def generate_id(self):
         pass
+
+    @abstractmethod
+    def login(self, email, password):
+        pass
+
+    @_name.setter
+    def _name(self, value):
+        self._name = value

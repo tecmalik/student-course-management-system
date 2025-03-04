@@ -1,4 +1,6 @@
-from src.schoolapp.user import User
+from django.utils.timezone import override
+
+from schoolapp.src.schoolapp.user import User
 
 
 class Student(User):
@@ -7,6 +9,13 @@ class Student(User):
         self.student_id = student_id
 
 
+    @override
+    def generate_id(self):
+        pass
+
+    @override
+    def login(self, email, password):
+        pass
 
 
 

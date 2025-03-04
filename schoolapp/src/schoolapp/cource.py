@@ -5,8 +5,8 @@ class Course :
     def _init_(self, course_name, course_code,course_grade):
         self._course_name = course_name
         self._course_code = course_code
-        self._course_grade = course_grade
-        self._instructor = instructor.Instructor("name", "password@gmail.com", "password", "T01","English language")
+        self.student = []
+        self._instructor = instructor.Instructor("name", "password@gmail.com", "password")
 
 
     @property
