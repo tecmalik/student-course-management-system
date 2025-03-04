@@ -3,6 +3,7 @@ from abc import ABC
 
 from schoolapp.src.schoolapp.user import  User
 
+count = 0
 
 def instructor_id():
     global count
@@ -26,7 +27,7 @@ class Instructor(User):
     def generate_id(self):
         return "I-" + str(self._instructor_id)
 
-    
+
     def login(self, email, password):
         if email == self._email and password == self.__password:
             return True

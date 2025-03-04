@@ -19,13 +19,13 @@ def validate_email(email):
 
 
 class User(ABC):
-    def _init_(self, name: str ,email: str, password: str ):
+    def __init__(self, name: str ,email: str, password: str ):
         self._name = name
         self._email = validate_email(email)
-        self.__password = validate_password(password)
+        self.__password = password
 
     @property
-    def _name(self):
+    def name(self):
         return self._name
 
 
@@ -37,6 +37,6 @@ class User(ABC):
     def login(self, email, password):
         pass
 
-    @_name.setter
-    def _name(self, value):
+    @name.setter
+    def name(self, value):
         self._name = value

@@ -9,7 +9,7 @@ class MyInstructor(unittest.TestCase):
         ...
     def test_that_instructor_can_register(self):
         instructor = Instructor("name", "email@email.com", "Password")
-        self.assertEqual( "name", instructor._name())
+        self.assertEqual( "name", instructor.name)
 
 
 
