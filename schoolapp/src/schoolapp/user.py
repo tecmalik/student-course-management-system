@@ -28,11 +28,6 @@ class User(ABC):
     def name(self):
         return self._name
 
-
-    @abstractmethod
-    def generate_id(self):
-        pass
-
     @abstractmethod
     def login(self, email, password):
         pass
