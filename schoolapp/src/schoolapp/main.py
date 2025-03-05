@@ -21,7 +21,9 @@ def registration_menu():
     return input(registration_prompt)
 
 def login_menu():
-    return input(login_prompt)
+    match input(login_prompt) :
+        pass
+        # case "1":login_asa_Instructor()
 
 
 def first_menu():
@@ -32,4 +34,3 @@ def first_menu():
             print('invalid input')
             first_menu()
 
-    

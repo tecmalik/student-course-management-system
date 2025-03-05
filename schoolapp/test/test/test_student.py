@@ -12,7 +12,6 @@ class MyStudentTestCase(unittest.TestCase):
         self.assertEqual("S-101",self.student.student_id)
     def test_that_student_can_view_courses_(self):
         self.student2.Student("StudentName2", "studentemail2@gmail.com", "password2", "S-102")
-
         self.assertEqual("StudentName",self.student.name)
 
 
