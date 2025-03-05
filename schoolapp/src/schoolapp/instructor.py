@@ -1,6 +1,6 @@
-from schoolapp.exception.exceptions import ExistingLogInDetails
-from schoolapp.src.schoolapp import course
-from schoolapp.src.schoolapp.user import  User
+from exception.exceptions import ExistingLogInDetails
+from src.schoolapp import course
+from src.schoolapp.user import  User
 
 
 class Instructor(User):
@@ -8,7 +8,6 @@ class Instructor(User):
         super().__init__(name, email, password)
         self._created_courses = []
         self._instructor_id = instructor_id
-        self.is_logged_in = False
         self.instructors = []
 
 
@@ -44,9 +43,16 @@ class Instructor(User):
         else:
             raise Exception("Invalid credentials")
 
-    def view_enrolled_student(self):
-        studentList =[]
-        for student in self._created_courses:
-            if self.is_logged_in:
-                studentList.append(student)
-        return studentList
+    def view_students_in_course(self):
+        if not course in self._created_courses:
+            return [student.name for student in course.enrolled_students]
+
+    def assign_grade(self, student, grade):
+        if course in self._created_courses:
+            if student in course.enrolled_students:
+                print(f"Grade {grade} assigned to {student.name} for {course.course_name}.")
+            else:
+                raise ValueError("Student is not enrolled in this course.")
+
+        else:
+                raise ValueError("You can only assign grades for courses you created.")
