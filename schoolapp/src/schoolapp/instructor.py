@@ -33,3 +33,4 @@ class Instructor(User):
             return True
         else:
             raise Exception("Invalid credentials")
+
