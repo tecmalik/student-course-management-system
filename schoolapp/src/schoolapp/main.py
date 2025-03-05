@@ -27,8 +27,17 @@ student_prompt = """
     """
 
 
-def login():
-    pass
+def instructor_login():
+    try:
+        userInput("Enter username to login: ")
+        userInput("Enter password to login: ")
+
+    except Exception as err :
+        print(err)
+    finally:
+        instructors_menu()
+
+
 
 
 def first_menu():
@@ -43,7 +52,7 @@ def registration_menu():
     match userInput(registration_prompt):
         case '1': register_instructor()
         case '2': register_student()
-        case _ : 
+        case _ :
             print('invalid input')
             registration_menu()
 
@@ -57,3 +66,6 @@ def instructors_menu():
         case _ :
             print('invalid input')
             instructors_menu()
+
+
+
