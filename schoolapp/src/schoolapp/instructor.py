@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-from exception.exceptions import ExistingLogInDetails
-from src.schoolapp import course
-from src.schoolapp.user import  User
-=======
-from abc import ABC
-
-
+from schoolapp.src.schoolapp.course import Course
 from schoolapp.src.schoolapp.user import  User
->>>>>>> 5228ad844dddb5149b19117927842403611f1a46
 
 count = 0
 
@@ -20,24 +12,19 @@ class Instructor(User):
     def __init__(self, name: str, email: str, password: str):
         super().__init__(name, email, password)
         self._created_courses = []
-<<<<<<< HEAD
         self._instructor_id = instructor_id
         self.instructors = []
 
 
 
-    def get_courses(self):
-        return self._created_courses
-=======
-        self._instructor_id = instructor_id()
->>>>>>> 5228ad844dddb5149b19117927842403611f1a46
+    def create_course(self, course_name, course_id):
+        course = Course(course_name, course_id, self)
+        self._created_courses.append(course)
+        return course
 
-    @property
     def get_id(self):
         return self._instructor_id
 
-    def create_course(self, name):
-        pass
 
 
     def generate_id(self):
@@ -50,19 +37,16 @@ class Instructor(User):
         else:
             raise Exception("Invalid credentials")
 
-<<<<<<< HEAD
-    def view_students_in_course(self):
-        if not course in self._created_courses:
-            return [student.name for student in course.enrolled_students]
 
-    def assign_grade(self, student, grade):
+    def view_students_in_course(self,course):
+        if not course in self._created_courses:
+            return  [student.name for student in course.enrolled_students]
+
+    def assign_grade(self, student, course, grade):
         if course in self._created_courses:
             if student in course.enrolled_students:
                 print(f"Grade {grade} assigned to {student.name} for {course.course_name}.")
             else:
                 raise ValueError("Student is not enrolled in this course.")
-
         else:
-                raise ValueError("You can only assign grades for courses you created.")
-=======
->>>>>>> 5228ad844dddb5149b19117927842403611f1a46
+            raise ValueError("You can only assign grades for courses you created.")
