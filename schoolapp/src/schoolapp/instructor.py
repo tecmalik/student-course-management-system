@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-from exception.exceptions import ExistingLogInDetails
-from src.schoolapp import course
-from src.schoolapp.user import  User
-=======
-from abc import ABC
-
-
+from schoolapp.src.schoolapp import course
 from schoolapp.src.schoolapp.user import  User
->>>>>>> 5228ad844dddb5149b19117927842403611f1a46
-
 count = 0
 
 def instructor_id():
@@ -20,17 +11,11 @@ class Instructor(User):
     def __init__(self, name: str, email: str, password: str):
         super().__init__(name, email, password)
         self._created_courses = []
-<<<<<<< HEAD
         self._instructor_id = instructor_id
         self.instructors = []
 
-
-
     def get_courses(self):
         return self._created_courses
-=======
-        self._instructor_id = instructor_id()
->>>>>>> 5228ad844dddb5149b19117927842403611f1a46
 
     @property
     def get_id(self):
@@ -50,7 +35,6 @@ class Instructor(User):
         else:
             raise Exception("Invalid credentials")
 
-<<<<<<< HEAD
     def view_students_in_course(self):
         if not course in self._created_courses:
             return [student.name for student in course.enrolled_students]
@@ -63,6 +47,4 @@ class Instructor(User):
                 raise ValueError("Student is not enrolled in this course.")
 
         else:
-                raise ValueError("You can only assign grades for courses you created.")
-=======
->>>>>>> 5228ad844dddb5149b19117927842403611f1a46
+            raise ValueError("You can only assign grades for courses you created.")

@@ -1,4 +1,3 @@
-from sympy.physics.units.definitions.unit_definitions import statC
 
 
 class Course :
@@ -9,6 +8,8 @@ class Course :
         self._course_level = course_level
         self._instructor_name = instructors_name
         self.student = []
+        self.grades = {}
+        self.enrolled_students = []
 
 
     @property
@@ -23,6 +24,16 @@ class Course :
     def course_code(self):
         return self._course_code
 
+    def add_student(self, student):
+        if student in self.enrolled_students:
+            raise ValueError("Student already enrolled.")
+        self.enrolled_students.remove(student)
+
+    def remove_student(self, student):
+        if student not in self.enrolled_students:
+            raise ValueError("Student not enrolled.")
+        self.enrolled_students.remove(student)
+
     @course_code.setter
     def course_code(self, course_code):
         self._course_code = course_code
@@ -36,3 +47,5 @@ class Course :
             raise ValueError("course_code must be 6 characters")
 
 
+    def enrolled_students(self):
+        return None
