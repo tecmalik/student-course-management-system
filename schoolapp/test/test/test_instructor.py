@@ -1,6 +1,5 @@
 import unittest
 
-from mako.testing.assertions import assert_raises_message_with_proper_context
 
 from schoolapp.src.schoolapp.instructor import Instructor
 
@@ -23,6 +22,7 @@ class MyInstructor(unittest.TestCase):
     def test_that_instructor_can_view_list_of_enrolled_courses(self):
         self.instructor.register("email@email.com", "password")
         self.assertEqual("james",self.instructor.view_enrolled_student()[1])
+
 
 
 
