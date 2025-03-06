@@ -6,9 +6,7 @@ class Student(User):
         super().__init__(name,email,password)
         self.student_id = student_id
         self.students = []
-        self.enrolled_courses = []
         self.is_logged_in = False
-
 
     def register_student(self, name ,email , password, student_id, courses):
         self.students.append(name,email,password,student_id)
