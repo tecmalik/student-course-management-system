@@ -1,5 +1,8 @@
 import bcrypt
 
+from schoolapp.src.schoolapp.instructor import Instructor
+from schoolapp.src.schoolapp.student import Student
+
 prompt = """
     Welcome
     1. login
@@ -48,6 +51,36 @@ def first_menu():
             print('invalid input')
             first_menu()
 
+
+def register_student():
+    email = userInput("Enter email to register: ")
+    name = userInput("Enter name to register: ")
+    password = userInput("Enter password to register: ")
+    student_id =userInput("Enter student ID (S###) to register: ")
+    try:
+        student = Student(email, name, password,student_id)
+        print('student registered successfully')
+        
+    except ValueError as err:
+        print(err)
+    finally: 
+        student_menu()
+
+
+def register_instructor():
+    name = userInput("Enter name to register: ")
+    email = userInput("Enter email to register: ")
+    password = userInput("Enter a password: ")
+    instructor_id = userInput("Enter instructor ID (I###): ")
+    try :
+        instructor = Instructor(email, name, password,instructor_id)
+        print('instructor registered successfully')
+    except ValueError as err:
+        print(err)
+    finally: 
+        instructors_menu()
+
+
 def registration_menu():
     match userInput(registration_prompt):
         case '1': register_instructor()
@@ -55,6 +88,12 @@ def registration_menu():
         case _ :
             print('invalid input')
             registration_menu()
+
+
+def create_courses():
+    email = input("Enter email to register: ")
+    Student = Student(email,"password","Student","S0001")
+
 
 
 def instructors_menu():
