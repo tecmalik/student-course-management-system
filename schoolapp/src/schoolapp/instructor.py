@@ -1,11 +1,6 @@
 from schoolapp.src.schoolapp import course
 from schoolapp.src.schoolapp.user import  User
-count = 0
 
-def instructor_id():
-    global count
-    count += 1
-    return f"T-{count}"
 
 class Instructor(User):
     def __init__(self, name: str, email: str, password: str):
