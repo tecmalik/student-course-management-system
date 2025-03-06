@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from schoolapp.src.schoolapp.course import Course
 from schoolapp.src.schoolapp.user import  User
 
@@ -50,3 +51,6 @@ class Instructor(User):
                 raise ValueError("Student is not enrolled in this course.")
         else:
             raise ValueError("You can only assign grades for courses you created.")
+=======
+
+>>>>>>> c9d514e8cc8721591aebd0b4d42bc0eb06435b9b
