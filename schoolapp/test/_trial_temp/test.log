@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-2025-03-06 07:01:49+0100 [-] Log opened.
-2025-03-06 07:01:49+0100 [-] /usr/lib/python3.12/unittest/case.py:580: builtins.RuntimeWarning: TestResult has no addDuration method
-=======
-2025-03-05 07:07:32+0100 [-] Log opened.
-2025-03-05 07:07:32+0100 [-] /usr/lib/python3.12/unittest/case.py:580: builtins.RuntimeWarning: TestResult has no addDuration method
->>>>>>> parent of c5bc35f ( updating files)
+2025-03-06 08:59:23+0100 [-] Log opened.
+2025-03-06 08:59:23+0100 [-] /usr/lib/python3.12/unittest/case.py:580: builtins.RuntimeWarning: TestResult has no addDuration method
