@@ -1,9 +1,4 @@
 import re
-
-from CourseManagement.Courses import Course
-from User import User, INSTRUCTOR_ID_PATTERN
-
-
 class Instructor(User):
     def _init_(self, email, password, name, instructor_id):
         super()._init_(email, password, name)
