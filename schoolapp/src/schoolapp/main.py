@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-=======
-class MainMenu
+
+class MainMenu:
     def __init__(self):
         self.courses = []
         self.choice =""
@@ -20,4 +19,4 @@ class MainMenu
 
             if self.choice == "1":
                 print("Student registration page")
->>>>>>> 23fba7d2f44df48f88259e8b16866a8dc20bd928
+

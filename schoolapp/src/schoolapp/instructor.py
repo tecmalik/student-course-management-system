@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 import re
 class Instructor(User):
     def _init_(self, email, password, name, instructor_id):
@@ -14,4 +13,3 @@ class Instructor(User):
         self.created_courses.append(course)
         return course
 
->>>>>>> 23fba7d2f44df48f88259e8b16866a8dc20bd928
