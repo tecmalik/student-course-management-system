@@ -1,3 +1,4 @@
+
 class Course:
     def __init__(self, course_name, course_id, instructor):
         self.course_name = course_name
@@ -10,4 +11,5 @@ class Course:
         if student in self.enrolled_students:
             raise ValueError("Student already enrolled.")
         self.enrolled_students.remove(student)
+
 
