@@ -1,22 +1,36 @@
 
 class MainMenu:
-    def __init__(self):
-        self.courses = []
-        self.choice =""
+    prompt = """
+        Welcome
+        1. login
+        2.register
+    """
+    registration_prompt = """
+        1. register as An instructor
+        2. register as A student
+    """
+    instructor_prompt = """
+        1. create courses
+        2. view created courses instructor
+        3. assign grades to Student
+        4. view registered students
+    """
 
+    def userInput(prompt):
+        return input(prompt)
 
-    def display_menu(self):
-        while self.choice != "6":
-            print("\nWelcome to the User Management System")
-            print("1. Register as Student")
-            print("2. Register as Instructor")
-            print("3. Create Course (Instructor)")
-            print("4. View Courses (Student)")
-            print("5. View Students and Assign Grades (Instructor)")
-            print("6. Exit")
+    student_prompt = """
+        1. enroll for a course
+        2. view available courses
+        3. view grades  
+        """
 
-            self.choice = input("Enter your choice: ")
+    def instructor_login():
+        try:
+            userInput("Enter username to login: ")
+            userInput("Enter password to login: ")
 
-            if self.choice == "1":
-                print("Student registration page")
-
+        except Exception as err:
+            print(err)
+        finally:
+            instructors_menu()

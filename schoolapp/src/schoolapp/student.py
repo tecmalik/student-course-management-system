@@ -1,4 +1,3 @@
 
-class student():
-    def_init_()
-
+class Student:
+    def __init__(self, name, age):
