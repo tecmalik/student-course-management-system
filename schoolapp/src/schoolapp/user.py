@@ -1,20 +1,25 @@
-import re
-
-EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-PASSWORD_PATTERN = r"^(?=.[A-Z])(?=.[a-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$"
-STUDENT_ID_PATTERN = r'^[a-z]$'
-INSTRUCTOR_ID_PATTERN = r'^I\d{3}$'
-
-
 class User:
-    def _init_(self, name, email, password):
-        self.name = name
+    def __init__(self, first_name: str, last_name: str, email: str, password: str):
+        self.first_name = first_name
+        self.last_name = last_name
         self.email = email
         self.password = password
+        self.is_logged_in = False
 
-    def register(self,name, email, password):
-            if not re.match(EMAIL_PATTERN, email):
-                raise ValueError("Invalid email format.")
-            if not re.match(PASSWORD_PATTERN, password):
+    def register(self, first_name: str, last_name: str, email: str, password: str):
+        return User(first_name, last_name, email, password)
 
-                raise ValueError("Password must be at least 8
+    def login(self, email: str, password: str):
+        if self.email == email and self.password == password:
+            self.is_logged_in = True
+            return "Login successful"
+        else:
+            return "Invalid email or password"
+
+    def logout(self):
+        if self.is_logged_in:
+            self.is_logged_in = False
+            return "Logout successful"
+        else:
+            return "User is already logged out"
+
