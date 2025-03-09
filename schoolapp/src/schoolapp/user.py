@@ -1,5 +1,7 @@
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 import re
 
 EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -29,3 +31,4 @@ class User:
 
                 raise ValueError("Password must be at least 8
 >>>>>>> 23fba7d2f44df48f88259e8b16866a8dc20bd928
+>>>>>>> ed7fab485545253c70cb82f9589e01caf4c15d92

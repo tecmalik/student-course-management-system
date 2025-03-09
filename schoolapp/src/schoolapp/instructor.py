@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 
 import re
 class Instructor(User):
@@ -13,3 +15,4 @@ class Instructor(User):
         self.created_courses.append(course)
         return course
 
+>>>>>>> ed7fab485545253c70cb82f9589e01caf4c15d92
