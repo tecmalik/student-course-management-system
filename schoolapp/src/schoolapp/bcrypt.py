@@ -1,5 +1,4 @@
-import hashlib
-
+import bcrypt
 
 class Bcrypt:
     def encrypt_password(self, password: str) -> str:
