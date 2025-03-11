@@ -1,23 +1,45 @@
-<<<<<<< HEAD
-class Instructor:
-    def __init__(self, email, password, name, instructor_id):
-        self.email = email
-        self.password = password
-        self.name = name
-        self.instructor_id = instructor_id
+from schoolapp.exception.exceptions import CourseAlreadyExist, CourseDoesNotExist
+from schoolapp.src.schoolapp.user import User
+
+
+class Instructor(User):
+    count = 1
+
+    def __init__(self, email:str,  password:str, first_name: str, last_name: str):
+
+        super().__init__(first_name, last_name, email, password)
+        self.instructor_id = self.instructor_id()
         self.created_courses = []
         self.students_in_courses = {}
+        Instructor.count += 1
+
+
+    @staticmethod
+    def instructor_id():
+        return f"I-0{Instructor.count}"
+
+    @property
+    def get_instructor_id(self):
+        return self.instructor_id
+
+    def get_number_of_created_courses(self):
+        return len(self.created_courses)
 
     def create_course(self, course_name, course_id):
+        for course in self.created_courses:
+            if course['name'] == course_name and course['id'] == course_id:
+                raise CourseAlreadyExist(f'{course_name} already exists')
         course = {"name": course_name, "id": course_id}
         self.created_courses.append(course)
         self.students_in_courses[course_id] = []
         print(f"Course '{course_name}' created successfully!")
 
     def delete_course(self, course_name, course_id):
-        self.created_courses = [course for course in self.created_courses if not (course["name"] == course_name and course["id"] == course_id)]
-        if course_id in self.students_in_courses:
-            del self.students_in_courses[course_id]
+        if len(self.created_courses) == 0 :
+            raise CourseDoesNotExist(f"{course_name} doesn't exist")
+        for course in self.created_courses:
+            if course["name"] == course_name and course["id"] == course_id:
+                self.created_courses.remove(course)
         print(f"Course '{course_name}' deleted successfully!")
 
     def view_students_in_course(self, course_id):
@@ -53,27 +75,3 @@ class Instructor:
         else:
             print(f"No such course with ID {course_id} exists.")
 
-
-
-
-
-=======
-<<<<<<< HEAD
-=======
-
-import re
-class Instructor(User):
-    def _init_(self, email, password, name, instructor_id):
-        super()._init_(email, password, name)
-        if not re.match(INSTRUCTOR_ID_PATTERN, instructor_id):
-            raise ValueError("Invalid instructor ID format.")
-        self.instructor_id = instructor_id
-        self.created_courses = []
-
-    def create_course(self, course_name, course_id):
-        course = Course(course_name, course_id, self)
-        self.created_courses.append(course)
-        return course
-
->>>>>>> ed7fab485545253c70cb82f9589e01caf4c15d92
->>>>>>> 90f73b6110bedf48b1619a431d4b86c34b8ef31a

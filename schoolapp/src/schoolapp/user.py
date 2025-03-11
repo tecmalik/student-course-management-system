@@ -1,73 +1,52 @@
-<<<<<<< HEAD
+from abc import ABC
 
-class User():
-=======
-<<<<<<< HEAD
-class User:
+
+from schoolapp.src.schoolapp.validator import Validator
+
+
+class User(ABC):
+    validator = Validator()
     def __init__(self, first_name: str, last_name: str, email: str, password: str):
         self.first_name = first_name
         self.last_name = last_name
-        self.email = email
-        self.password = password
-        self.is_logged_in = False
+        self._email =  self.validator.validate_email(email)
+        self._password = self.validator.validate_password(password)
+        self._is_logged_in = False
 
-    def register(self, first_name: str, last_name: str, email: str, password: str):
-        return User(first_name, last_name, email, password)
+    @property
+    def is_logged_in(self):
+        return self._is_logged_in
+    @is_logged_in.setter
+    def is_logged_in(self, value):
+        self._is_logged_in = value
+
+    @property
+    def first_name(self):
+        return self._first_name
+    @first_name.setter
+    def first_name(self, value):
+        self._first_name = value
+
+    @property
+    def last_name(self):
+        return self._lastname
+    @last_name.setter
+    def last_name(self, value):
+        self._lastname = value
+
+    def get_fullname(self):
+        return f"{self.first_name} {self.last_name}"
 
     def login(self, email: str, password: str):
-        if self.email == email and self.password == password:
+        if email == self._email and  password == self._password:
             self.is_logged_in = True
             return "Login successful"
         else:
             return "Invalid email or password"
 
     def logout(self):
-        if self.is_logged_in:
-            self.is_logged_in = False
+        if self._is_logged_in:
+            self._is_logged_in = False
             return "Logout successful"
-        else:
-            return "User is already logged out"
-
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-import re
-
-EMAIL_PATTERN = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-PASSWORD_PATTERN = r"^(?=.[A-Z])(?=.[a-z])(?=.\d)(?=.[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$"
-STUDENT_ID_PATTERN = r'^[a-z]$'
-INSTRUCTOR_ID_PATTERN = r'^I\d{3}$'
 
 
->>>>>>> 23fba7d2f44df48f88259e8b16866a8dc20bd928
-class User:
->>>>>>> 161320acae6c7eeda26d3de192bfd381609f561e
-    def _init_(self, name, email, password):
-        self.name = name
-        self.email = email
-        self.password = password
-
-    def register(self,name, email, password):
-            if not re.match(EMAIL_PATTERN, email):
-                raise ValueError("Invalid email format.")
-            if not re.match(PASSWORD_PATTERN, password):
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 161320acae6c7eeda26d3de192bfd381609f561e
-                raise ValueError("Password must be at least 8 characters with one letter and one number.")
-            self.email = email
-            self.password = password
-            self.name = name
-            return True
-<<<<<<< HEAD
-=======
-=======
-
-                raise ValueError("Password must be at least 8
->>>>>>> 23fba7d2f44df48f88259e8b16866a8dc20bd928
->>>>>>> ed7fab485545253c70cb82f9589e01caf4c15d92
->>>>>>> 90f73b6110bedf48b1619a431d4b86c34b8ef31a
->>>>>>> 161320acae6c7eeda26d3de192bfd381609f561e

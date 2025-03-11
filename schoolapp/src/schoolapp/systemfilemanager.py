@@ -1,5 +1,6 @@
 import json
 import os
+
 class SystemManager:
     def _init_(self):
         self.students = []
@@ -8,9 +9,9 @@ class SystemManager:
 
     def save_data(self,filename:str):
         data = {
-            "students": [{"email": s.email, "password": s.password, "name": s.name, "student_id": s.student_id} for s in
+            "students": [{"email": s.email, "password": s._password, "name": s.name, "student_id": s.student_id} for s in
                          self.students],
-            "instructors": [{"email": i.email, "password": i.password, "name": i.name, "instructor_id": i.instructor_id}
+            "instructors": [{"email": i.email, "password": i._password, "name": i.name, "instructor_id": i.instructor_id}
                             for i in self.instructors],
             "courses": [{"course_name": c.course_name, "course_id": c.course_id, "instructor_email": c.instructor.email}
                         for c in self.courses]
@@ -34,5 +35,6 @@ class SystemManager:
 
         os.remove(filename)
         print("file deleted Successfully.")
+
 
 

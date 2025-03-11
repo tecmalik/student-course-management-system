@@ -1,12 +1,24 @@
-class Student:
-    def __init__(self, email, password, name, student_id):
+from schoolapp.src.schoolapp.user import User
+
+
+
+
+class Student(User):
+    count = 0
+    def __init__(self, email:str, password:str, first_name: str, last_name: str):
+        super().__init__(first_name, last_name, email, password)
         self.email = email
         self.password = password
-        self.name = name
-        self.student_id = student_id
+        self.student_id = self.student_id()
         self.enrolled_courses = []
+        Student.count += 1
 
-    def view_available_courses(self, courses):
+
+    @staticmethod
+    def student_id():
+        return f"S-0{Student.count}"
+
+    def view_available_courses(self ,courses):
         print("Available Courses:")
         for course in courses:
             print(course)
