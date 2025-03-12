@@ -39,6 +39,13 @@ class CourseDoesNotExist(Exception):
         self.message = message
         super().__init__(self.message)
 
+class UserAlreadyExist(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
 
-
+class InvalidLoginException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
 

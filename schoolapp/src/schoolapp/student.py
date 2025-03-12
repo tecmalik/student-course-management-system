@@ -1,10 +1,6 @@
 from schoolapp.src.schoolapp.user import User
 
-
-
-
 class Student(User):
-    count = 0
     def __init__(self, email:str, password:str, first_name: str, last_name: str):
         super().__init__(first_name, last_name, email, password)
         self.email = email
@@ -13,7 +9,7 @@ class Student(User):
         self.enrolled_courses = []
         Student.count += 1
 
-
+    count = 0
     @staticmethod
     def student_id():
         return f"S-0{Student.count}"
@@ -23,7 +19,7 @@ class Student(User):
         for course in courses:
             print(course)
 
-    def register_course_and_instructor(self, course):
+    def register_course(self, course):
         if course not in self.enrolled_courses:
             self.enrolled_courses.append(course)
             print(f"Registered for course: {course}")

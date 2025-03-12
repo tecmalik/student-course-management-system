@@ -1,9 +1,9 @@
-from schoolapp.exception.exceptions import CourseAlreadyExist, CourseDoesNotExist
+from schoolapp.exception.exceptions import CourseAlreadyExist, CourseDoesNotExist, InvalidLoginException
 from schoolapp.src.schoolapp.user import User
+from schoolapp.src.schoolapp.systemfilemanager import SystemManager
 
 
 class Instructor(User):
-    count = 1
 
     def __init__(self, email:str,  password:str, first_name: str, last_name: str):
 
@@ -13,7 +13,7 @@ class Instructor(User):
         self.students_in_courses = {}
         Instructor.count += 1
 
-
+    count = 1
     @staticmethod
     def instructor_id():
         return f"I-0{Instructor.count}"
@@ -26,15 +26,22 @@ class Instructor(User):
         return len(self.created_courses)
 
     def create_course(self, course_name, course_id):
+        if self.is_logged_in == False:
+            raise InvalidLoginException("user is not logged in")
         for course in self.created_courses:
             if course['name'] == course_name and course['id'] == course_id:
                 raise CourseAlreadyExist(f'{course_name} already exists')
         course = {"name": course_name, "id": course_id}
         self.created_courses.append(course)
+        system_manager = SystemManager()
+        system_manager.add(course)
+
         self.students_in_courses[course_id] = []
         print(f"Course '{course_name}' created successfully!")
 
     def delete_course(self, course_name, course_id):
+        if self.is_logged_in == False:
+            raise InvalidLoginException("user is not logged in")
         if len(self.created_courses) == 0 :
             raise CourseDoesNotExist(f"{course_name} doesn't exist")
         for course in self.created_courses:
@@ -43,6 +50,8 @@ class Instructor(User):
         print(f"Course '{course_name}' deleted successfully!")
 
     def view_students_in_course(self, course_id):
+        if self.is_logged_in == False:
+            raise InvalidLoginException("user is not logged in")
         if course_id in self.students_in_courses:
             students = self.students_in_courses[course_id]
             print(f"Students in course ID {course_id}: {students if students else 'No students enrolled yet.'}")
@@ -50,6 +59,8 @@ class Instructor(User):
             print(f"No such course with ID {course_id} exists.")
 
     def assign_grades(self, course_id, student_name, grade):
+        if self.is_logged_in == False:
+            raise InvalidLoginException("user is not logged in")
         if course_id in self.students_in_courses:
             if student_name in self.students_in_courses[course_id]:
                 print(f"Assigned grade '{grade}' to student '{student_name}' in course ID {course_id}.")
@@ -61,6 +72,8 @@ class Instructor(User):
 
 
     def view_created_courses(self):
+        if self.is_logged_in == False:
+            raise InvalidLoginException("user is not logged in")
         print("Created courses:")
         for course in self.created_courses:
             print(f"Course Name: {course['name']}, Course ID: {course['id']}")
@@ -68,6 +81,8 @@ class Instructor(User):
             print("No courses created yet.")
 
     def view_students_and_grades(self, course_id):
+        if self.is_logged_in == False:
+            raise InvalidLoginException("user is not logged in")
         if course_id in self.students_in_courses:
             print(f"Students and grades for course ID {course_id}:")
             for student in self.students_in_courses[course_id]:

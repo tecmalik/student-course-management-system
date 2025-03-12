@@ -7,6 +7,8 @@ class SystemManager:
         self.instructors = []
         self.courses = []
 
+
+
     def save_data(self,filename:str):
         data = {
             "students": [{"email": s.email, "password": s._password, "name": s.name, "student_id": s.student_id} for s in
@@ -36,5 +38,18 @@ class SystemManager:
         os.remove(filename)
         print("file deleted Successfully.")
 
+    def add_course(self, course):
+        self.courses.append(course)
 
+    def remove_course(self, course):
+        self.courses.remove(course)
+
+    def add_instructor(self, instructor):
+        self.instructors.append(instructor)
+
+    def remove_instructor(self, instructor):
+        self.instructors.remove(instructor)
+
+    def add_student(self, student):
+        self.students.append(student)
 
