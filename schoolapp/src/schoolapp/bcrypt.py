@@ -1,13 +1,12 @@
 
 import bcrypt
 
-
 class Bcrypt:
-    def encrypt_password(self, password: str) -> bytes:
-            return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    def encrypt_password(self, password:str) -> bytes:
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-    def check_password(self, password: str, hashed_password: str) -> bool:
-            return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+    def check_password(self, password: bytes, hashed_password:bytes) -> bool:
+        return bcrypt.checkpw( password , hashed_password)
 
     def validate_username(username, password):
         with open(file, 'r') as file:
@@ -16,5 +15,5 @@ class Bcrypt:
                 if username == stored_username:
                     return bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8'))
 
-import bcrypt
+
 

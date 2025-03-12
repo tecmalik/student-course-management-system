@@ -1,7 +1,6 @@
 from abc import ABC
 
-
-
+from schoolapp.src.schoolapp import bcrypt
 from schoolapp.src.schoolapp.bcrypt import Bcrypt
 from schoolapp.src.schoolapp.validator import Validator
 from schoolapp.exception.exceptions import InvalidLoginException
@@ -46,7 +45,7 @@ class User(ABC):
         return f"{self.first_name} {self.last_name}"
 
     def login(self, email: str, password:str):
-        if email == self._email and  bcrypt.check_password(password , self._password) :
+        if email == self._email and  bcrypt.Bcrypt.check_password(self,password, self._password):
             self._is_logged_in = True
             return "Login successful"
         raise InvalidLoginException("Invalid email or password")
@@ -55,4 +54,5 @@ class User(ABC):
         if self._is_logged_in:
             self._is_logged_in = False
             return "Logout successful"
+
 
