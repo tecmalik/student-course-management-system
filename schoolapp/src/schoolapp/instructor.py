@@ -33,8 +33,8 @@ class Instructor(User):
                 raise CourseAlreadyExist(f'{course_name} already exists')
         course = {"name": course_name, "id": course_id}
         self.created_courses.append(course)
-        system_manager = SystemManager()
-        system_manager.add(course)
+        # system_manager = SystemManager()
+        # system_manager.add_course(course)
 
         self.students_in_courses[course_id] = []
         print(f"Course '{course_name}' created successfully!")

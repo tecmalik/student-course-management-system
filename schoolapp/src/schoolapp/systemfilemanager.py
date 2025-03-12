@@ -37,19 +37,3 @@ class SystemManager:
 
         os.remove(filename)
         print("file deleted Successfully.")
-
-    def add_course(self, course):
-        self.courses.append(course)
-
-    def remove_course(self, course):
-        self.courses.remove(course)
-
-    def add_instructor(self, instructor):
-        self.instructors.append(instructor)
-
-    def remove_instructor(self, instructor):
-        self.instructors.remove(instructor)
-
-    def add_student(self, student):
-        self.students.append(student)
-

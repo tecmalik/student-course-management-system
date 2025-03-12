@@ -2,7 +2,7 @@ import unittest
 
 from email_validator import EmailNotValidError
 from schoolapp.exception.exceptions import PasswordNotAccepted, PasswordTooShort, CourseAlreadyExist, \
-    CourseDoesNotExist, UserAlreadyExist, InvalidLoginException
+    CourseDoesNotExist, InvalidLoginException
 from schoolapp.src.schoolapp.instructor import Instructor
 
 
@@ -62,7 +62,7 @@ class MyInstructor(unittest.TestCase):
         with self.assertRaises(EmailNotValidError) :
             Instructor( "Instructor", "Password123@","first_name","last_name")
         with self.assertRaises(EmailNotValidError) :
-            Instructor( "Instructor", "Password123@mann-","first_name","last_name")
+            Instructor( "Instructor", "Password123@","first_name","last_name")
 
     def test_that_instructor_can_delete_created_courses(self):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")
