@@ -46,7 +46,7 @@ class MyInstructor(unittest.TestCase):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")
         self.instructor.create_course("course_name","Code101" )
         self.assertEqual( 1, self.instructor.get_number_of_created_courses())
-        with self.assertRaises(CourseAlreadyExist):
+        with self.assertRaises(git):
             self.instructor.create_course("course_name","Code101" )
         self.assertEqual( 1, self.instructor.get_number_of_created_courses())
         self.system_file = SystemFileManager()

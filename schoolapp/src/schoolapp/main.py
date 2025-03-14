@@ -8,13 +8,15 @@ from schoolapp.src.schoolapp import student, instructor
 from schoolapp.src.schoolapp.instructor import Instructor
 from schoolapp.src.schoolapp.student import Student
 
+instructors = None
+students = None
+
 prompt = """
         Welcome
         1. Login
         2. Register
         3. Exit
     """
-
 
 registration_prompt = """
         1. register as An instructor
@@ -63,6 +65,9 @@ def create_courses():
         instructor_memu()
 
 
+def view_created_courses_instructor():
+    pass
+
 
 def instructor_memu():
     user_input = user_choice(instructor_prompt)
@@ -109,7 +114,7 @@ def register_user():
             except EmailNotValidError as e:
                 display(e)
             finally:
-                instructor_login()
+                user_login()
 
         case '2':
             try:
@@ -136,15 +141,13 @@ def user_login():
         alpha , number = user_id.split('-')
         display(alpha)
         match(alpha):
-
-            case 'I': Instructor.login(email ,password)
+            case 'I': Instructor.login(email, password)
             case 'S' : Student.login( email, password)
-            case _ :
-                display("invalid Id")
-                user_login()
+            case _ : user_login()
     except InvalidLoginException as e :
         display(e);
-    except
+
+
 
 
 
