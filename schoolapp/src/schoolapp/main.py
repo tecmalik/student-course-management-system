@@ -31,5 +31,5 @@ def instructor_login():
 
     except Exception as err:
         print(err)
-    finally:
-        instructors_menu()
+    # finally:
+        # instructors_menu()

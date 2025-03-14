@@ -3,6 +3,8 @@ import unittest
 from email_validator import EmailNotValidError
 
 from schoolapp.exception.exceptions import UserAlreadyExist, InvalidLoginDetails, PasswordNotAccepted
+from schoolapp.src.schoolapp import course
+from schoolapp.src.schoolapp.instructor import Instructor
 from schoolapp.src.schoolapp.student import Student
 
 
@@ -41,6 +43,21 @@ class MyInstructor(unittest.TestCase):
         self.student.logout()
         self.assertFalse(self.student.is_logged_in)
 
-    def test_that_student_can_enroll_for_instructor_courses(self):
-        pass
+    def test_that_student_can_view_created_courses_by_instructor_(self):
+        self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
+        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.create_course("course_name","Code101" )
+        self.student.login( "Student@gmail.com", "P@ssw0rd123")
+        courses = self.student.view_available_courses()[0]
+        self.assertEqual(course.Course("course_name","Code101","first_name last_name" ) , courses  )
 
+    def test_that_student_can_enroll_for_instructor_courses(self):
+        self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
+        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.create_course("course_name","Code101" )
+        self.student.login( "Student@gmail.com", "P@ssw0rd123")
+        courses = self.student.view_available_courses()[0]
+        self.assertEqual(course.Course("course_name","Code101","first_name last_name" ) , courses  )
+        self.student.register_course("Code101")
+
+   

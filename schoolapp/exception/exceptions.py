@@ -23,7 +23,6 @@ class PasswordNotAccepted(Exception):
         self.message = message
         super().__init__(self.message)
 
-
 class InvalidEmail(Exception):
     def __init__(self, message):
         self.message = message
@@ -48,4 +47,16 @@ class InvalidLoginException(Exception):
     def __init__(self, message):
         self.message = message
         super().__init__(self.message)
+
+class InvalidArgumentException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+class NoCourseAvailableException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
 

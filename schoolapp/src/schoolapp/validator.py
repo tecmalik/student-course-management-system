@@ -1,6 +1,7 @@
 import re
 from email_validator import validate_email
 from schoolapp.exception import exceptions
+from schoolapp.exception.exceptions import InvalidArgumentException
 from schoolapp.src.schoolapp.bcrypt import Bcrypt
 
 
@@ -21,10 +22,9 @@ class Validator:
         validate_email(email)
         return email
 
-    # def validate_name(self, first_name:str, last_name:str ):
-    #     with open(file, 'r'):
-    #         pass
+    def validate_name(self, first_name:str, last_name:str ):
+        if first_name.strip() is None :
+            raise InvalidArgumentException("first name cannot be empty")
+        if last_name.strip() is None :
+            raise InvalidArgumentException("first name cannot be empty")
 
-
-    def validate_duplicate_user(self, users_list, email: str) -> bool:
-        return email not in [user.email for user in users_list]

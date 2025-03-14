@@ -2,9 +2,9 @@ import unittest
 
 from email_validator import EmailNotValidError
 from schoolapp.exception.exceptions import PasswordNotAccepted, PasswordTooShort, CourseAlreadyExist, \
-    CourseDoesNotExist, InvalidLoginException
+    CourseDoesNotExist, InvalidLoginException, UserAlreadyExist
 from schoolapp.src.schoolapp.instructor import Instructor
-
+from schoolapp.src.schoolapp.systemfilemanager import SystemFileManager
 
 class MyInstructor(unittest.TestCase):
     def setUp(self):
@@ -49,6 +49,8 @@ class MyInstructor(unittest.TestCase):
         with self.assertRaises(CourseAlreadyExist):
             self.instructor.create_course("course_name","Code101" )
         self.assertEqual( 1, self.instructor.get_number_of_created_courses())
+        self.system_file = SystemFileManager()
+        self.system_file.delete_data('courses.json')
 
     def test_that_instructor_can_not_register_With_invalid_password(self):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")

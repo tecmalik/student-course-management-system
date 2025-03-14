@@ -1,10 +1,12 @@
 from schoolapp.exception.exceptions import CourseAlreadyExist, CourseDoesNotExist, InvalidLoginException
+from schoolapp.src.schoolapp.course import Course
 from schoolapp.src.schoolapp.user import User
-from schoolapp.src.schoolapp.systemfilemanager import SystemManager
+from schoolapp.src.schoolapp.systemfilemanager import SystemFileManager
+
 
 
 class Instructor(User):
-
+    system_file = SystemFileManager()
     def __init__(self, email:str,  password:str, first_name: str, last_name: str):
 
         super().__init__(first_name, last_name, email, password)
@@ -29,15 +31,13 @@ class Instructor(User):
         if self.is_logged_in == False:
             raise InvalidLoginException("user is not logged in")
         for course in self.created_courses:
-            if course['name'] == course_name and course['id'] == course_id:
+            if course.course_name == course_name and course.course_id == course_id:
                 raise CourseAlreadyExist(f'{course_name} already exists')
-        course = {"name": course_name, "id": course_id}
+        course = Course( course_name,course_id , Instructor.get_fullname(self))
         self.created_courses.append(course)
-        # system_manager = SystemManager()
-        # system_manager.add_course(course)
-
         self.students_in_courses[course_id] = []
         print(f"Course '{course_name}' created successfully!")
+        self.system_file.save_course('courses.json',"course",self.created_courses)
 
     def delete_course(self, course_name, course_id):
         if self.is_logged_in == False:
@@ -45,7 +45,7 @@ class Instructor(User):
         if len(self.created_courses) == 0 :
             raise CourseDoesNotExist(f"{course_name} doesn't exist")
         for course in self.created_courses:
-            if course["name"] == course_name and course["id"] == course_id:
+            if course.course_name == course_name and course.course_id == course_id:
                 self.created_courses.remove(course)
         print(f"Course '{course_name}' deleted successfully!")
 

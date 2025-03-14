@@ -10,7 +10,7 @@ class User(ABC):
     validator = Validator()
     bcrypt = Bcrypt()
     def __init__(self, first_name: str, last_name: str, email: str, password: str):
-        # self.validator.validate_name (first_name, last_name)
+        self.validator.validate_name (first_name, last_name)
         self.validator.validate_password(password)
         self.first_name = first_name
         self.last_name = last_name
