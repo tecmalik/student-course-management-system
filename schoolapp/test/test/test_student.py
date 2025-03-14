@@ -19,6 +19,7 @@ class MyInstructor(unittest.TestCase):
         self.assertEqual( "first_name", self.student.first_name)
         self.assertEqual( "last_name", self.student.last_name)
         self.assertEqual( f"S-0{Student.count - 1}", self.student.student_id)
+
     # def test_that_Student_cannot_register_more_than_once(self):
     #     with self.assertRaises(UserAlreadyExist):
     #         self.student2 = Student("Student@gmail.com", "P@ssw0rd123","first_name","last_name")
@@ -59,5 +60,8 @@ class MyInstructor(unittest.TestCase):
         courses = self.student.view_available_courses()[0]
         self.assertEqual(course.Course("course_name","Code101","first_name last_name" ) , courses  )
         self.student.register_course("Code101")
+        self.assertEqual(1,self.student.get_numbers_of_enrolled_courses())
+
+
 
    

@@ -26,23 +26,24 @@ class SystemFileManager:
 
     def save_course(self,filename:str,key:str,values):
         data = {
-            key : [{f"{key}_name": course_data.course_name, f"{key}_id": course_data.course_id, f"{key}_email": course_data.instructor }
+            key : [{f"{key}_name": course_data.course_name, f"{key}_id": course_data.course_id, f"{key}_instructor": course_data.instructor }
                         for course_data in values]
         }
         with open(filename, "w") as file:
             json.dump(data, file)
 
-    def load_course(self,filename:str,key:str, values:list):
+
+    def load_course(self, filename: str, key: str, values: list):
         with open(filename, "r") as file:
             data = json.load(file)
             for course_data in data[key]:
-                name = course_data.get("name")
-                course_id = course_data.get("course_id")
-                instructor = course_data.get("instructor")
+                name = course_data[f"{key}_name"]
+                course_id = course_data[f"{key}_id"]
+                instructor = course_data[f"{key}_instructor"]
+
                 course = Course(name, course_id, instructor)
                 values.append(course)
         return values
-
 
 
 
