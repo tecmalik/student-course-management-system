@@ -1,42 +1,59 @@
-<<<<<<< HEAD
+from schoolapp.exception.exceptions import InvalidArgumentException
+from schoolapp.src.schoolapp.user import User
+
+
 class Course:
     def __init__(self, course_name, course_id, instructor):
-=======
-class course:
-    def __init__(self,course_name, course_id, instructor):
->>>>>>> 90f73b6110bedf48b1619a431d4b86c34b8ef31a
-        self.course_name = course_name
-        self.course_id = course_id
-        self.instructor = instructor
-        self.enrolled_students = []
-<<<<<<< HEAD
-        self.grades = []
+        self._course_name = course_name
+        self._course_id = course_id
+        self._instructor = instructor
+        self._enrolled_students = []
+
+    @property
+    def course_name(self):
+        return self._course_name
+    @property
+    def course_id(self):
+        return self._course_id
+    @property
+    def instructor(self):
+        return self._instructor
+
+    @course_id.setter
+    def course_id(self, course_id):
+        if course_id is None:
+            raise InvalidArgumentException("course_name cannot be None")
+        if course_id.strip() == "":
+            raise InvalidArgumentException("course_name cannot be empty")
+        self._course_id = course_id
+
+    @course_name.setter
+    def course_name(self, course_name):
+        if course_name is None:
+            raise InvalidArgumentException("course_name cannot be None")
+        if course_name.strip() == "":
+            raise InvalidArgumentException("course_name cannot be empty")
+        self._course_name = course_name
+
+    @instructor.setter
+    def instructor(self, instructor):
+        if instructor is None:
+            raise InvalidArgumentException("course_name cannot be None")
+        if instructor.strip() == "":
+            raise InvalidArgumentException("course_name cannot be empty")
+        self._instructor = instructor
 
     def add_student(self, student):
-        if student in self.enrolled_students:
-            raise ValueError("Student already enrolled.")
-        self.enrolled_students.remove(student)
-
-=======
-        self.grades = {}
-
-
-    def get_grade(self, student):
-        return self.grades[student.student_id]
-
-    def set_grade(self, student, grade):
-        self.grades[student.student_id] = grade
+        self._enrolled_students.append(student)
 
     def remove_student(self, student):
-        if student in self.enrolled_students:
-            self.enrolled_students.remove(student)
-            if student.student_id in self.grades:
-                self.grades.pop(student.student_id)
+        for student in self._enrolled_students:
+            if student.student_id == student.student_id:
+                self._enrolled_students.remove(student)
 
-    def add_student(self, student):
-        if student not in self.enrolled_students:
-            self.enrolled_students.append(student)
+    def number_of_student(self):
+        return len(self._enrolled_students)
 
-    def get_enrolled_students(self):
-        return self.enrolled_students
->>>>>>> 90f73b6110bedf48b1619a431d4b86c34b8ef31a
+    def __eq__(self, other,):
+        if isinstance(other,Course):
+            return self.course_id == other.course_id

@@ -1,45 +1,67 @@
 import unittest
 
+from email_validator import EmailNotValidError
 
+from schoolapp.exception.exceptions import UserAlreadyExist, InvalidLoginDetails, PasswordNotAccepted
+from schoolapp.src.schoolapp import course
 from schoolapp.src.schoolapp.instructor import Instructor
+from schoolapp.src.schoolapp.student import Student
 
 
 class MyInstructor(unittest.TestCase):
     def setUp(self):
-        self.instructor = Instructor("name","email@email.com", "Password","I-101")
-    def test_that_instructor_can_register(self):
-        self.assertEqual( "name", self.instructor.name)
-    def test_that_instructor_can_create_a_course(self):
-        self.instructor.create_course('course_name','Eng101' , 'course_level', 'instructor_name')
-        self.assertEqual( 1, self.instructor.get_number_of_created_courses())
-    def test_that_instructor_can_raise_error_for_invalid_code_create_a_course(self):
-        with self.assertRaises(ValueError) :self.instructor.create_course('course_name','code101' , 'course_level', 'instructor_name')
-    def test_that_instructor_can_throw_error_create_invalid_course(self):
-        with self.assertRaises(Exception):self.instructor.create_course("English", 'course_name', 'course_level', 'instructor_name')
-    def test_that_instructor_can_not_register_with_same_email(self):
-        self.instructor.register("email@email.com", "password2")
-        with self.assertRaises(Exception): self.instructor.register("email@email.com","password")
-    def test_that_instructor_can_view_list_of_enrolled_courses(self):
-        self.instructor.register("email@email.com", "password")
-        self.assertEqual("james",self.instructor.view_enrolled_student()[1])
+        self.student = Student("Student@gmail.com", "P@ssw0rd123", "first_name", "last_name")
+
+    def tearDown(self):
+        self.student = None
+
+    def test_that_Student_can_register(self):
+        self.assertEqual("first_name", self.student.first_name)
+        self.assertEqual("last_name", self.student.last_name)
+        self.assertEqual(f"S-0{Student.count - 1}", self.student.student_id)
+
+    # def test_that_Student_cannot_register_more_than_once(self):
+    #     with self.assertRaises(UserAlreadyExist):
+    #         self.student2 = Student("Student@gmail.com", "P@ssw0rd123","first_name","last_name")
+
+    def test_that_student_cannot_register_with_invalid_password(self):
+        with self.assertRaises(PasswordNotAccepted):
+            self.student2 = Student("Student@gmail.com", "invalidpass", "first_name", "last_name")
+
+    def test_that_student_cannot_register_with_invalid_email(self):
+        with self.assertRaises(EmailNotValidError):
+            self.student2 = Student("Studentinvalidemail", "P@ssw0rd123", "first_name", "last_name")
+
+    def test_that_student_can_login(self):
+        self.assertFalse(self.student.is_logged_in)
+        self.student.login("Student@gmail.com", "P@ssw0rd123")
+        self.assertTrue(self.student.is_logged_in)
+
+    def test_that_student_can_logout(self):
+        self.assertFalse(self.student.is_logged_in)
+        self.student.login("Student@gmail.com", "P@ssw0rd123")
+        self.assertTrue(self.student.is_logged_in)
+        self.student.logout()
+        self.assertFalse(self.student.is_logged_in)
+
+    def test_that_student_can_view_created_courses_by_instructor_(self):
+        self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
+        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.create_course("course_name", "Code101")
+        self.student.login("Student@gmail.com", "P@ssw0rd123")
+        courses = self.student.view_available_courses()[0]
+        self.assertEqual(course.Course("course_name", "Code101", "first_name last_name"), courses)
+
+    def test_that_student_can_enroll_for_instructor_courses(self):
+        self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
+        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.create_course("course_name", "Code101")
+        self.student.login("Student@gmail.com", "P@ssw0rd123")
+        courses = self.student.view_available_courses()[0]
+        self.assertEqual(course.Course("course_name", "Code101", "first_name last_name"), courses)
+        self.student.register_course("Code101")
+        self.assertEqual(1, self.student.get_numbers_of_enrolled_courses())
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    unittest.main()

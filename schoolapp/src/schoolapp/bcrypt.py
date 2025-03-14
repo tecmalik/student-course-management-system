@@ -1,9 +1,10 @@
-import hashlib
-
+import bcrypt
 
 class Bcrypt:
-    def encrypt_password(self, password: str) -> str:
-        return hashlib.sha256(password.encode()).hexdigest()
+    def encrypt_password(self, password:str) -> bytes:
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-    def decrypt_password(self, password: str) -> str:
-        raise NotImplementedError("Password decryption is not supported for hashed passwords")
+    def check_password(self, password: str, hashed_password:bytes) -> bool:
+        return bcrypt.checkpw(password.encode('utf-8'), hashed_password )
+
+
