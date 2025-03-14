@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from schoolapp.src.schoolapp import bcrypt
 from schoolapp.src.schoolapp.bcrypt import Bcrypt
@@ -54,5 +54,10 @@ class User(ABC):
         if self._is_logged_in:
             self._is_logged_in = False
             return "Logout successful"
+
+    @abstractmethod
+    def view_all_grades(self):
+        pass
+
 
 

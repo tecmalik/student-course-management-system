@@ -1,16 +1,21 @@
-from webbrowser import register
+import sys
+
 
 from email_validator import EmailNotValidError
 
 from schoolapp.exception.exceptions import InvalidLoginException, PasswordNotAccepted, CourseAlreadyExist
+from schoolapp.src.schoolapp import student, instructor
 from schoolapp.src.schoolapp.instructor import Instructor
 from schoolapp.src.schoolapp.student import Student
 
 prompt = """
         Welcome
-        1. login
-        2. register
+        1. Login
+        2. Register
+        3. Exit
     """
+
+
 registration_prompt = """
         1. register as An instructor
         2. register as A student
@@ -21,6 +26,7 @@ instructor_prompt = """
         3. View Created Courses
         4. Assign Grades To Student
         5. View Registered Students
+        6. Exit
     """
 
 student_prompt = """
@@ -28,11 +34,13 @@ student_prompt = """
         2. Enroll For A Course
         3. View course Grades  
         4. view Enrolled course
+        5. Exit
         """
 
 registration_status = """
         1. register as Instructor
         2. Register as Student
+        4. Exit
 """
 
 def user_choice(message):
@@ -64,6 +72,7 @@ def instructor_memu():
         case '3': view_created_courses()
         case '4': view_registered_students()
         case '5': assign_grades_to_Student()
+        case '6': sys.exit(0)
         case _ :
             display('Invalid choice')
             instructor_memu()
@@ -76,16 +85,17 @@ def student_menu():
         case '2' : enroll_for_a_course()
         case '3' : view_course_rades()
         case '4' : view_enrolled_course()
+        case '5' : sys.exit(0)
         case _ :
             display("invalid choice")
             student_menu()
 
 
 def register_user():
-    first_name = user_choice("Enter First Name")
-    last_name = user_choice("Enter Last Name")
-    email = user_choice("Enter Email")
-    password = user_choice("Enter password")
+    first_name = user_choice("Enter First Name : ")
+    last_name = user_choice("Enter Last Name :")
+    email = user_choice("Enter Email : ")
+    password = user_choice("Enter password : ")
     user_input = user_choice(registration_status)
     match(user_input):
         case'1':
@@ -113,23 +123,44 @@ def register_user():
                 display(e)
             finally:
                 student_login()
+        case '3': sys.exit(0)
+
 
 
 
 def user_login():
-    user_input = user_choice(prompt)
+    email = user_choice("Enter user Login :")
+    password = user_choice("Enter password :")
+    user_id = user_choice("Enter user ID :")
+    try:
+        alpha , number = user_id.split('-')
+        display(alpha)
+        match(alpha):
+
+            case 'I': Instructor.login(email ,password)
+            case 'S' : Student.login( email, password)
+            case _ :
+                display("invalid Id")
+                user_login()
+    except InvalidLoginException as e :
+        display(e);
+    except
+
 
 
 
 def first_menu():
     user_input = user_choice(prompt)
-    match(user_input ):
+    match(user_input):
         case '1' :
             user_login()
         case '2' :
             register_user()
-        case _ :
-            first_menu()
+        case '3' : sys.exit(0)
+        case _ : first_menu()
 
 
 
+
+
+first_menu()
