@@ -27,10 +27,6 @@ class MyInstructor(unittest.TestCase):
         self.assertEqual( "last_name", self.instructor.last_name)
         self.assertEqual( f"I-0{Instructor.count - 1}", self.instructor.get_instructor_id)
 
-    # def test_that_instructor_can_not_register_twice(self):
-    #     with self.assertRaises(UserAlreadyExist):
-    #         self.instructor2 = Instructor("Instructor@email.com", "P@ssw0rd123","first_name","last_name")
-
     def test_that_instructor_can_create_a_course(self):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")
         self.instructor.create_course("course_name","Code101" )
@@ -46,7 +42,7 @@ class MyInstructor(unittest.TestCase):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")
         self.instructor.create_course("course_name","Code101" )
         self.assertEqual( 1, self.instructor.get_number_of_created_courses())
-        with self.assertRaises(git):
+        with self.assertRaises(CourseAlreadyExist):
             self.instructor.create_course("course_name","Code101" )
         self.assertEqual( 1, self.instructor.get_number_of_created_courses())
         self.system_file = SystemFileManager()
@@ -77,6 +73,7 @@ class MyInstructor(unittest.TestCase):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")
         with self.assertRaises(CourseDoesNotExist):
             self.instructor.delete_course("course_name","Code101")
+
 
 
 

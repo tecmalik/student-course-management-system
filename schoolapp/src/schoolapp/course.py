@@ -30,7 +30,7 @@ class Course:
     @course_name.setter
     def course_name(self, course_name):
         if course_name is None:
-            raise InvalidArgumentException("course_name cannot be None")
+            raise InvalidArgumentException("course_name cannot be empty")
         if course_name.strip() == "":
             raise InvalidArgumentException("course_name cannot be empty")
         self._course_name = course_name
@@ -38,7 +38,7 @@ class Course:
     @instructor.setter
     def instructor(self, instructor):
         if instructor is None:
-            raise InvalidArgumentException("course_name cannot be None")
+            raise InvalidArgumentException("course_name cannot be Empty")
         if instructor.strip() == "":
             raise InvalidArgumentException("course_name cannot be empty")
         self._instructor = instructor

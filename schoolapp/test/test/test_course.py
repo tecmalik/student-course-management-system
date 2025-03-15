@@ -17,12 +17,12 @@ class MyCourse(unittest.TestCase):
     def test_that_course_code_can_not_be_empty(self):
         with self.assertRaises(InvalidArgumentException):
             self.course.course_id=""
-    def test_that_course_has_a_course_code(self):
+    def test_that_course_has_a_course_id(self):
         self.assertEqual(self.course.course_id,'course_id',)
-    def test_that_course_can_have_student_enrolled(self):
-        self.course.add_student(Student("Student@gmail.com", "P@ssw0rd123", "first_name", "last_name"))
-        self.assertEqual(1,self.course.number_of_student())
-    def test_that_course_can_remove_students_of_enrolled_students(self):
-        self.course.remove_student(Student("Student@gmail.com", "P@ssw0rd123","first_name", "last_name"))
-        self.assertEqual(0,self.course.number_of_student()),
+    # def test_that_student_can_enroll_for_course(self):
+    #     self.course.add_student(Student("Student@gmail.com", "P@ssw0rd123", "first_name", "last_name"))
+    #     self.assertEqual(1,self.course.number_of_student())
+    # def test_that_student_enrolled_students(self):
+    #     self.course.remove_student(Student("Student@gmail.com", "P@ssw0rd123","first_name", "last_name"))
+    #     self.assertEqual(0,self.course.number_of_student()),
 

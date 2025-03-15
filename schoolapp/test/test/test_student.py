@@ -20,10 +20,6 @@ class MyInstructor(unittest.TestCase):
         self.assertEqual( "last_name", self.student.last_name)
         self.assertEqual( f"S-0{Student.count - 1}", self.student.student_id)
 
-    # def test_that_Student_cannot_register_more_than_once(self):
-    #     with self.assertRaises(UserAlreadyExist):
-    #         self.student2 = Student("Student@gmail.com", "P@ssw0rd123","first_name","last_name")
-
     def test_that_student_cannot_register_with_invalid_password(self):
         with self.assertRaises(PasswordNotAccepted):
             self.student2 = Student("Student@gmail.com", "invalidpass", "first_name", "last_name")
