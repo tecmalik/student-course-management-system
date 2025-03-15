@@ -90,3 +90,7 @@ class Instructor(User):
         else:
             print(f"No such course with ID {course_id} exists.")
 
+
+    def view_all_grades(self):
+        pass
+

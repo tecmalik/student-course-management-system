@@ -8,9 +8,12 @@ from schoolapp.src.schoolapp import student, instructor
 from schoolapp.src.schoolapp.instructor import Instructor
 from schoolapp.src.schoolapp.student import Student
 
-instructors = None
-students = None
 
+
+email = ""
+password = ""
+Instructors = []
+students = []
 prompt = """
         Welcome
         1. Login
@@ -106,7 +109,7 @@ def register_user():
         case'1':
             try:
                 Instructor(email, password, first_name, last_name)
-
+                Instructors.append(Instructor)
             except InvalidLoginException as e:
                 display(e)
             except PasswordNotAccepted as e :
@@ -131,6 +134,9 @@ def register_user():
         case '3': sys.exit(0)
 
 
+def login_Instructor():
+    pass
+
 
 
 def user_login():
@@ -139,13 +145,15 @@ def user_login():
     user_id = user_choice("Enter user ID :")
     try:
         alpha , number = user_id.split('-')
-        display(alpha)
-        match(alpha):
-            case 'I': Instructor.login(email, password)
-            case 'S' : Student.login( email, password)
+        display(alpha.upper())
+        match(alpha.upper()):
+            case 'I':login_Instructor()
+            case 'S' :login_student()
             case _ : user_login()
     except InvalidLoginException as e :
         display(e);
+    except ValueError as e :
+        display(f" {e} \n Enter a Valid I.D")
 
 
 

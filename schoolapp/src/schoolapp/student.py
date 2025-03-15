@@ -76,5 +76,6 @@ class Student(User):
         else:
             print(f"Not enrolled in {course}")
 
-
+    def view_all_grades(self):
+        pass
 
