@@ -4,6 +4,7 @@ from email_validator import EmailNotValidError
 from schoolapp.exception.exceptions import PasswordNotAccepted, PasswordTooShort, CourseAlreadyExist, \
     CourseDoesNotExist, InvalidLoginException, UserAlreadyExist
 from schoolapp.src.schoolapp.instructor import Instructor
+from schoolapp.src.schoolapp.student import Student
 from schoolapp.src.schoolapp.systemfilemanager import SystemFileManager
 
 class MyInstructor(unittest.TestCase):
@@ -73,6 +74,15 @@ class MyInstructor(unittest.TestCase):
         self.instructor.login("Instructor@email.com", "P@ssw0rd123")
         with self.assertRaises(CourseDoesNotExist):
             self.instructor.delete_course("course_name","Code101")
+
+    def test_that_instructor_can_view_list_of_enrolled_student(self):
+        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.create_course("course_name", "Code101")
+        self.assertEqual(1, self.instructor.get_number_of_created_courses())
+        self.student = Student("Student@gmail.com", "P@ssw0rd123", "first_name", "last_name")
+        self.student.login("Student@gmail.com", "P@ssw0rd123")
+        self.student.register_course("Code101")
+        
 
 
 

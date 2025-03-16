@@ -12,18 +12,6 @@ class SystemFileManager:
 
 
 
-    # def save_data(self,filename:str):
-    #     data = {
-    #         "students": [{"email": s.email, "password": s._password, "name": s.name, "student_id": s.student_id} for s in
-    #                      self.students],
-    #         "instructors": [{"email": i.email, "password": i._password, "name": i.name, "instructor_id": i.instructor_id}
-    #                         for i in self.instructors],
-    #         "courses": [{"course_name": c.course_name, "course_id": c.course_id, "instructor_email": c.instructor.email}
-    #                     for c in self.courses]
-    #     }
-    #     with open(filename, "w") as file:
-    #         json.dump(data, file)
-
     def save_course(self,filename:str,key:str,values):
         data = {
             key : [{f"{key}_name": course_data.course_name, f"{key}_id": course_data.course_id, f"{key}_instructor": course_data.instructor }
@@ -33,35 +21,45 @@ class SystemFileManager:
             json.dump(data, file)
 
 
+    #     try:
+        #     with open(filename, "w") as file:
+        #         json.dump(data, file)
+        # except (IOError, json.JSONEncoder.encode) as e:  # Catch potential errors
+        #     print(f"Error saving course data to {filename}: {e}")
+
     def load_course(self, filename: str, key: str, values: list):
         with open(filename, "r") as file:
             data = json.load(file)
-            for course_data in data[key]:
-                name = course_data[f"{key}_name"]
-                course_id = course_data[f"{key}_id"]
-                instructor = course_data[f"{key}_instructor"]
-
-                course = Course(name, course_id, instructor)
+            course_data = data[key]
+            for course in course_data:
+                course_name = course[f'{key}_name']
+                course_id = course[f'{key}_id']
+                course_instructor = course[f'{key}_instructor']
+                course = Course(course_name, course_id, course_instructor)
                 values.append(course)
         return values
-
-
-
-
-    # def load_data(self, filename:str):
-    #     with open(filename, "r") as file:
-    #         data = json.load(file)
-    #         for s in data["students"]:
-    #              self.students.append(Student(s["email"], s["password"], s["name"], s["student_id"]))
-    #         for i in data["instructors"]:
-    #                 self.instructors.append(Instructor(i["email"], i["password"], i["name"], i["instructor_id"]))
-    #         for c in data["courses"]:
-    #             instructor = next((i for i in self.instructors if i.email == c["instructor_email"]), None)
-    #             if instructor:
-    #                 course = instructor.create_course(c["course_name"], c["course_id"])
-    #                 self.courses.append(course)
 
 
     def delete_data(self,filename:str):
         os.remove(filename)
         print("file deleted Successfully.")
+
+
+
+    # try:
+    #     with open('your_file.json', 'r') as file:
+    #         data = json.load(file)
+    #         print(data)
+    # except FileNotFoundError:
+    #     print("The file was not found.")
+    # except json.JSONDecodeError:
+    #     print("Error decoding JSON.")
+
+
+    def save_student(self, filename:str,key:str, value):
+        data = {
+            key: {"student_name": students_data.student_name, f"{key}_id": students_data.student_id }
+                  for students_data in value
+        }
+        with open(filename, "w") as file:
+            json.dump(data, file)

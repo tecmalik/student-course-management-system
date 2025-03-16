@@ -8,8 +8,8 @@ from schoolapp.src.schoolapp.bcrypt import Bcrypt
 class Validator:
 
     def validate_password(self,password: str) -> str:
-        # if " " in password :
-        #     pass
+        if " " in password :
+            raise InvalidArgumentException("email cannot contain space")
         if password.isspace():
             raise InvalidArgumentException("password can not be empty.")
         if len(password) < 8:

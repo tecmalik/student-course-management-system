@@ -17,41 +17,34 @@ class Student(User):
     def student_id():
         return f"S-0{Student.count}"
 
-    def get_numbers_of_enrolled_courses(self):
-        return len(self.enrolled_courses)
+    @property
+    def get_student_id(self):
+        return self.student_id
 
     def view_available_courses(self):
         self.system_file.load_course('courses.json',"course", self.enrolled_courses)
         if len(self.enrolled_courses) == 0:
             raise NoCourseAvailableException("no course available")
-        if len(self.enrolled_courses) == None:
+        if len(self.enrolled_courses) is None:
             raise NoCourseAvailableException("no course available")
         return self.enrolled_courses
 
-    #
-    # def register_course(self, course_id: str):
-    #     courses_list = self.view_available_courses()
-    #     for courses in self.enrolled_courses :
-    #         if course_id == courses.course_id:
-    #             raise InvalidCourseDetails(f"Already enrolled in {course_id}")
-    #
-    #     for courses in courses_list:
-    #         if course_id == courses.course_id and courses not in self.enrolled_courses:
-    #             self.enrolled_courses.append(courses)
-    #             return (f"Registered for course: {courses.course_name} : {courses.course_id} successfully.")
-    #         else:
-    #             print(f"Course with ID: {course_id} not found.")
 
     def register_course(self, course_id: str):
+
         courses_list = self.view_available_courses()
-        #
+        if self.enrolled_courses == 0 :
+            raise NoCourseAvailableException("course registered")
+
         # for courses in self.enrolled_courses:
         #     if course_id == courses.course_id:
-        #         raise InvalidCourseDetails(f"Already enrolled in {course_id}")
+        #         raise InvalidCourseDetails( f"Already enrolled in {course_id}")
 
         for courses in courses_list:
             if course_id == courses.course_id:
                 self.enrolled_courses.append(courses)
+                values = [self.get_fullname(), self.get_student_id]
+                self.system_file.save_student('instructor.json',course_id, values)
                 return f"Registered for course: {courses.course_name} : {courses.course_id} successfully."
 
             print(f"Course with ID: {course_id} not found.")
@@ -78,4 +71,7 @@ class Student(User):
 
     def view_all_grades(self):
         pass
+
+    def get_enrolled_course(self):
+        return self.enrolled_courses
 
