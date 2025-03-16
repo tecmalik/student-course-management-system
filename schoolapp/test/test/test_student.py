@@ -33,30 +33,30 @@ class MyInstructor(unittest.TestCase):
 
     def test_that_student_can_login(self):
         self.assertFalse(self.student.is_logged_in)
-        self.student.login( "Student@gmail.com", "P@ssw0rd123")
+        self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         self.assertTrue(self.student.is_logged_in)
 
     def test_that_student_can_logout(self):
         self.assertFalse(self.student.is_logged_in)
-        self.student.login( "Student@gmail.com", "P@ssw0rd123")
+        self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         self.assertTrue(self.student.is_logged_in)
-        self.student.logout()
+        self.student.logout_user()
         self.assertFalse(self.student.is_logged_in)
 
     def test_that_student_can_view_created_courses_by_instructor_(self):
         self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
-        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.login_user("Instructor@email.com", "P@ssw0rd123")
         self.instructor.create_course("course_name","Code101" )
-        self.student.login( "Student@gmail.com", "P@ssw0rd123")
+        self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         courses = self.student.view_available_courses()[0]
         self.assertEqual(course.Course("course_name","Code101","first_name last_name" ) , courses  )
         self.system_file.delete_data('courses.json')
 
     def test_that_student_can_enroll_for_instructor_courses(self):
         self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
-        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.login_user("Instructor@email.com", "P@ssw0rd123")
         self.instructor.create_course("course_name2","Code101" )
-        self.student.login( "Student@gmail.com", "P@ssw0rd123")
+        self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         courses = self.student.view_available_courses()[0]
         self.assertEqual(course.Course("course_name","Code101","first_name last_name" ) , courses  )
         self.student.register_course("Code101")
@@ -78,9 +78,9 @@ class MyInstructor(unittest.TestCase):
 
     def test_that_student_can_view_grades_of_a_course(self):
         self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
-        self.instructor.login("Instructor@email.com", "P@ssw0rd123")
+        self.instructor.login_user("Instructor@email.com", "P@ssw0rd123")
         self.instructor.create_course("course_name2", "Code101")
-        self.student.login("Student@gmail.com", "P@ssw0rd123")
+        self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         courses = self.student.view_available_courses()[0]
         self.assertEqual(course.Course("course_name", "Code101", "first_name last_name"), courses)
         self.student.register_course("Code101")

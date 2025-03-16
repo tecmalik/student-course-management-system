@@ -1,4 +1,5 @@
-from schoolapp.exception.exceptions import StudentAlreadyRegistered
+from schoolapp.exception.exceptions import StudentAlreadyRegistered, InvalidLoginException
+from schoolapp.src.schoolapp.main import email
 from schoolapp.src.schoolapp.student import Student
 
 
@@ -11,10 +12,22 @@ class Students:
         for student in self.students:
             if student.email == email :
                 raise StudentAlreadyRegistered("student already registered")
-             = Student(firstname, lastname, email, password)
-        self.students.append(student)
+        registered_student = Student(firstname, lastname, email, password)
+        self.students.append(registered_student)
 
     def login(self,email,password):
         for student in self.students:
             if student.email == email :
-                student.login(email,password)
+                student.login_user(email, password)
+
+    def find_by_email(self,email):
+        for student in self.students:
+            if student.email == email :
+                return student
+        raise InvalidLoginException("Invalid email or password")
+
+    def find_by_id(self,student_id):
+        for student in self.students:
+            if student.student_id()== student_id :
+                return student
+        raise InvalidLoginException("invalid Id")

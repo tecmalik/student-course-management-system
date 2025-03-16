@@ -44,13 +44,13 @@ class User(ABC):
     def get_fullname(self):
         return f"{self.first_name} {self.last_name}"
 
-    def login(self, email: str, password:str):
+    def login_user(self, email: str, password:str):
         if email == self._email and  bcrypt.Bcrypt.check_password(self,password, self._password):
             self._is_logged_in = True
             return "Login successful"
         raise InvalidLoginException("Invalid email or password")
 
-    def logout(self):
+    def logout_user(self):
         if self._is_logged_in:
             self._is_logged_in = False
             return "Logout successful"
