@@ -4,16 +4,15 @@ import sys
 from email_validator import EmailNotValidError
 
 from schoolapp.exception.exceptions import InvalidLoginException, PasswordNotAccepted, CourseAlreadyExist
-from schoolapp.src.schoolapp import student, instructor
-from schoolapp.src.schoolapp.instructor import Instructor
-from schoolapp.src.schoolapp.student import Student
+from schoolapp.src.schoolapp.instructors import Instructors
+
 
 
 
 email = ""
 password = ""
-Instructors = []
-students = []
+Instructor = []
+student = []
 prompt = """
         Welcome
         1. Login
@@ -59,7 +58,8 @@ def create_courses():
     course_name = user_choice("Enter courses name")
     course_code = user_choice("Enter course code")
     try:
-        Instructor.create_course(course_name,course_code)
+        instructor = Instructors.find_by_email(email)
+        instructor.create_course(course_name, course_code)
     except InvalidLoginException as e :
         display(e)
     except CourseAlreadyExist as e :
@@ -108,8 +108,7 @@ def register_user():
     match(user_input):
         case'1':
             try:
-                Instructor(email, password, first_name, last_name)
-                Instructors.append(Instructor)
+                Instructors.register(email, password, first_name, last_name)
             except InvalidLoginException as e:
                 display(e)
             except PasswordNotAccepted as e :
