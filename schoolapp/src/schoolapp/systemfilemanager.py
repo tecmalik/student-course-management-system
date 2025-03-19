@@ -46,20 +46,16 @@ class SystemFileManager:
 
 
 
-    # try:
-    #     with open('your_file.json', 'r') as file:
-    #         data = json.load(file)
-    #         print(data)
-    # except FileNotFoundError:
-    #     print("The file was not found.")
-    # except json.JSONDecodeError:
-    #     print("Error decoding JSON.")
-
-
-    def save_student(self, filename:str,key:str, value):
+    def save_student(self, filename:str, key:str , value):
         data = {
-            key: {"student_name": students_data.student_name, f"{key}_id": students_data.student_id }
-                  for students_data in value
+            key: {'student_name': value[0], 'student_id': value[1], 'student_grade': "no grade assigned"}
         }
-        with open(filename, "w") as file:
-            json.dump(data, file)
+        with open(filename, "w") as outfile:
+            json.dump(data, outfile)
+
+    def load_enrolled_student(self, filename:str, key:str, value ):
+        with open(filename , "r") as file:
+            data = json.load(file)
+            course_data = data[key]
+            value.append(course_data)
+        return value

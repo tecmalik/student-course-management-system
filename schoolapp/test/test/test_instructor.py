@@ -82,6 +82,9 @@ class MyInstructor(unittest.TestCase):
         self.student = Student("Student@gmail.com", "P@ssw0rd123", "first_name", "last_name")
         self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         self.student.register_course("Code101")
+
+
+
         
 
 

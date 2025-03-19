@@ -79,14 +79,18 @@ class MyInstructor(unittest.TestCase):
     def test_that_student_can_view_grades_of_a_course(self):
         self.instructor = Instructor("Instructor@email.com", "P@ssw0rd123", "first_name", "last_name")
         self.instructor.login_user("Instructor@email.com", "P@ssw0rd123")
-        self.instructor.create_course("course_name2", "Code101")
+        self.instructor.create_course("course_name2", "course_id")
         self.student.login_user("Student@gmail.com", "P@ssw0rd123")
         courses = self.student.view_available_courses()[0]
-        self.assertEqual(course.Course("course_name", "Code101", "first_name last_name"), courses)
-        self.student.register_course("Code101")
-        self.assertEqual(course.Course("course_name", "Code101", "first_name last_name"),self.student.get_enrolled_course()[0])
+        self.assertEqual(course.Course("course_name", "course_id", "first_name last_name"), courses)
+        self.student.register_course("course_id")
+        self.assertEqual(course.Course("course_name", "course_id", "first_name last_name"),self.student.get_enrolled_course()[0])
+        self.instructor.view_students_in_course('course_id')
+        self.instructor.assign_grades('course_id', 'student_name', 'grade')
 
-        # self.system_file.delete_data('courses.json')
+        self.system_file.delete_data('instructor.json')
+        self.system_file.delete_data('courses.json')
+
 
 
 

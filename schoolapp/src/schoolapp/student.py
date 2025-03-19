@@ -44,7 +44,7 @@ class Student(User):
             if course_id == courses.course_id:
                 self.enrolled_courses.append(courses)
                 values = [self.get_fullname(), self.get_student_id]
-                self.system_file.save_student('instructor.json',course_id, values)
+                self.system_file.save_student('instructor.json', course_id , values)
                 return f"Registered for course: {courses.course_name} : {courses.course_id} successfully."
 
             print(f"Course with ID: {course_id} not found.")
