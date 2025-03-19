@@ -6,7 +6,7 @@ class Student(User):
     system_file = SystemFileManager()
     def __init__(self, email:str, password:str, first_name: str, last_name: str):
         super().__init__(first_name, last_name, email, password)
-        self.email = email
+
         self.password = password
         self.student_id = self.student_id()
         self.enrolled_courses = []

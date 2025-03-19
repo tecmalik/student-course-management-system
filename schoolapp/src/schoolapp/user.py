@@ -10,10 +10,10 @@ class User(ABC):
     validator = Validator()
     bcrypt = Bcrypt()
     def __init__(self, first_name: str, last_name: str, email: str, password: str):
-        self.validator.validate_name (first_name, last_name)
+
         self.validator.validate_password(password)
-        self.first_name = first_name
-        self.last_name = last_name
+        self.first_name = self.validator.validate_name(first_name)
+        self.last_name = self.validator.validate_name(last_name)
         self._email =  self.validator.validate_email(email)
         self._password = self.bcrypt.encrypt_password(password)
         self._is_logged_in = False
@@ -38,7 +38,7 @@ class User(ABC):
         return self._lastname
 
     @property
-    def email(self):
+    def get_email(self):
         return self._email
 
     @last_name.setter

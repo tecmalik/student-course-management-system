@@ -7,7 +7,7 @@ from schoolapp.src.schoolapp.systemfilemanager import SystemFileManager
 
 class Instructor(User):
     system_file = SystemFileManager()
-    def __init__(self, email:str,  password:str, first_name: str, last_name: str):
+    def __init__(self, first_name: str, last_name: str, email:str,  password:str):
 
         super().__init__(first_name, last_name, email, password)
         self.instructor_id = self.instructor_id()

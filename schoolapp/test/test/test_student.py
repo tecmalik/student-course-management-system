@@ -25,11 +25,11 @@ class MyInstructor(unittest.TestCase):
 
     def test_that_student_cannot_register_with_invalid_password(self):
         with self.assertRaises(PasswordNotAccepted):
-            self.student2 = Student("Student@gmail.com", "invalidpass", "first_name", "last_name")
+            self.student2 = Student("Student@gmail.com", "invalid_pass", "first_name", "last_name")
 
     def test_that_student_cannot_register_with_invalid_email(self):
         with self.assertRaises(EmailNotValidError):
-            self.student2 = Student("Studentinvalidemail", "P@ssw0rd123", "first_name", "last_name")
+            self.student2 = Student("Student_invalid_email", "P@ssw0rd123", "first_name", "last_name")
 
     def test_that_student_can_login(self):
         self.assertFalse(self.student.is_logged_in)

@@ -52,6 +52,7 @@ class Main:
     def user_options(self,message):
         return input(message)
 
+
     def display(self,message):
         return print(message)
 
@@ -64,6 +65,7 @@ class Main:
         try:
             instructor = self.instructors.find_by_email(self.email)
             instructor.create_course(course_name, course_code)
+
         except InvalidLoginException as e :
             self.display(e)
         except CourseAlreadyExist as e :
@@ -121,24 +123,28 @@ class Main:
 
 
     def register_user(self):
-        user_input = self.user_options(self.registration_prompt)
-        first_name:str = self.user_options("Enter First Name : ")
-        last_name:str = self.user_options("Enter Last Name :")
-        email:str = self.user_options("Enter Email : ")
-        self.email = email
-        password:str = self.user_options("Enter password : ")
-        self.password = password
-        match user_input:
+        users_input = self.user_options(self.registration_prompt)
+
+        match users_input :
             case'1':
                 try:
+                    first_name: str = self.user_options("Enter First Name : ")
+                    last_name: str = self.user_options("Enter Last Name :")
+                    email: str = self.user_options("Enter Email : ")
+                    self.email = email
+                    password: str = self.user_options("Enter password : ")
+                    self.password = password
                     self.instructors.register(first_name, last_name, self.email, self.password)
-                    instructor = self.instructors.find_by_email(email)
-                    self.display(f"{instructor.get_fullname()} Registered Successfully . \n your ID is : {instructor.get_instructor_id}")
+                    instructor = self.instructors.find_by_email(self.email)
+                    self.display(f"{instructor.get_email} Registered Successfully. \n your ID is : {instructor.get_instructor_id}")
+
                 except InvalidLoginException as e:
                     self.display(e)
                 except PasswordNotAccepted as e :
                     self.display(e)
                 except EmailNotValidError as e:
+                    self.display(e)
+                except ValueError as e:
                     self.display(e)
                 finally:
                     self.first_menu()
@@ -146,7 +152,13 @@ class Main:
             case '2':
 
                 try:
-                    self.students.register(first_name,last_name,self.email, self.password)
+                    student_first_name: str = self.user_options("Enter First Name : ")
+                    last_name: str = self.user_options("Enter Last Name :")
+                    email: str = self.user_options("Enter Email : ")
+                    self.email = email
+                    password: str = self.user_options("Enter password : ")
+                    self.password = password
+                    self.students.register(student_first_name,last_name,self.email, self.password)
                     student = self.students.find_by_email(email)
                     self.display(f"your ID is : {student.get_student_id}")
 
@@ -212,7 +224,9 @@ class Main:
             case '2' :
                 self.register_user()
             case '3' : sys.exit(0)
-            case _ : self.first_menu()
+            case _ :
+                self.display('invalid input !!!, enter a valid choice')
+                self.first_menu()
 
     def view_available_courses(self):
         pass
