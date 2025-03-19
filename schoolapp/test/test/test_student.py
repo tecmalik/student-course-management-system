@@ -86,8 +86,7 @@ class MyInstructor(unittest.TestCase):
         self.student.register_course("course_id")
         self.assertEqual(course.Course("course_name", "course_id", "first_name last_name"),self.student.get_enrolled_course()[0])
         self.instructor.view_students_in_course('course_id')
-        self.instructor.assign_grades('course_id', 'student_name', 'grade')
-
+        self.instructor.assign_grades('course_id', 'student_name', '50')
         self.system_file.delete_data('instructor.json')
         self.system_file.delete_data('courses.json')
 

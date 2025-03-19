@@ -21,12 +21,6 @@ class SystemFileManager:
             json.dump(data, file)
 
 
-    #     try:
-        #     with open(filename, "w") as file:
-        #         json.dump(data, file)
-        # except (IOError, json.JSONEncoder.encode) as e:  # Catch potential errors
-        #     print(f"Error saving course data to {filename}: {e}")
-
     def load_course(self, filename: str, key: str, values: list):
         with open(filename, "r") as file:
             data = json.load(file)

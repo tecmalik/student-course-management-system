@@ -1,5 +1,4 @@
 from schoolapp.exception.exceptions import StudentAlreadyRegistered, InvalidLoginException
-from schoolapp.src.schoolapp.main import email
 from schoolapp.src.schoolapp.student import Student
 
 
@@ -14,6 +13,7 @@ class Students:
                 raise StudentAlreadyRegistered("student already registered")
         registered_student = Student(firstname, lastname, email, password)
         self.students.append(registered_student)
+
 
     def login(self,email,password):
         for student in self.students:

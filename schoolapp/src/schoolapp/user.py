@@ -37,6 +37,10 @@ class User(ABC):
     def last_name(self):
         return self._lastname
 
+    @property
+    def email(self):
+        return self._email
+
     @last_name.setter
     def last_name(self, value):
         self._lastname = value

@@ -1,8 +1,6 @@
 from schoolapp.exception.exceptions import InstructorAlreadyRegistered, InvalidLoginException
-
 from schoolapp.src.schoolapp.instructor import Instructor
-from schoolapp.src.schoolapp.main import email
-from schoolapp.src.schoolapp.student import Student
+
 
 
 class Instructors:

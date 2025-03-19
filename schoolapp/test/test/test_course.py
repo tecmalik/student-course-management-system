@@ -2,7 +2,7 @@ import unittest
 
 from schoolapp.exception.exceptions import InvalidArgumentException
 from schoolapp.src.schoolapp import course
-from schoolapp.src.schoolapp.student import Student
+
 
 
 class MyCourse(unittest.TestCase):
@@ -20,9 +20,4 @@ class MyCourse(unittest.TestCase):
     def test_that_course_has_a_course_id(self):
         self.assertEqual(self.course.course_id,'course_id',)
     # def test_that_student_can_enroll_for_course(self):
-    #     self.course.add_student(Student("Student@gmail.com", "P@ssw0rd123", "first_name", "last_name"))
-    #     self.assertEqual(1,self.course.number_of_student())
-    # def test_that_student_enrolled_students(self):
-    #     self.course.remove_student(Student("Student@gmail.com", "P@ssw0rd123","first_name", "last_name"))
-    #     self.assertEqual(0,self.course.number_of_student()),
-
+        pass

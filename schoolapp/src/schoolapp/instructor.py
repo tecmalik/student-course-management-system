@@ -69,8 +69,12 @@ class Instructor(User):
             raise Exception(" grade has to be digit")
         if int(grade) <=0 or int(grade) >= 100 :
             raise Exception(' grade not valid')
-        if course_id.isspace() or student_name.isspace() or grade.isspace:
-            raise Exception('input cant be empty')
+        if course_id.isspace() :
+            raise Exception('course cannot be empty cant be empty')
+        if student_name.isspace() :
+            raise Exception('student name can not be empty cant be empty')
+        if grade.isspace():
+            raise Exception('grade can not be empty')
 
         if self.is_logged_in == False:
             raise InvalidLoginException("user is not logged in")
@@ -79,6 +83,7 @@ class Instructor(User):
             raise Exception(f"{course_id} not found")
         count = 0
         for student_info in self.students_in_courses[course_id]:
+            print(student_info)
             if student_info["student_name"] == student_name:
                 count += 1
         if count == 0:
