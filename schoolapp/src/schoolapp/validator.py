@@ -11,9 +11,14 @@ class Validator:
             raise InvalidArgumentException("email cannot contain space")
         if password.isspace():
             raise InvalidArgumentException("password can not be empty.")
+        count = 0
+        for char in password :
+            count += 1
+        if count < 8 :
+            raise PasswordTooShort("password must be alphanumeric characters ")
 
-        if len(password) < 8:
-            raise PasswordTooShort("password must be at least 8 characters long")
+        if password.isalnum() == False :
+            raise InvalidArgumentException('password must include Alphabets and digits')
 
         pattern = r"[a-zA-Z0-9]{8,}"
         if re.match(pattern, password):

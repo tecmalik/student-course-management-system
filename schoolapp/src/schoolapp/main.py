@@ -4,7 +4,7 @@ import sys
 from email_validator import EmailNotValidError
 
 from schoolapp.exception.exceptions import InvalidLoginException, PasswordNotAccepted, CourseAlreadyExist, \
-    InvalidArgumentException
+    InvalidArgumentException, PasswordTooShort
 from schoolapp.src.schoolapp.instructors import Instructors
 
 from schoolapp.src.schoolapp.students import Students
@@ -24,12 +24,14 @@ class Main:
         """
 
     registration_prompt = """
+            REGISTRATION MENU
             1. register as Instructor
             2. register as student
             3. Back 
             4. Exit
         """
     instructor_prompt = """
+            INSTRUCTORS MENU
             1. Create Courses
             2. View Created Courses Instructor
             3. View Created Courses
@@ -40,6 +42,7 @@ class Main:
         """
 
     student_prompt = """
+            STUDENT MENU
             1. View Available Courses
             2. Enroll For A Course
             3. View course Grades  
@@ -70,7 +73,9 @@ class Main:
             self.display(e)
         except CourseAlreadyExist as e :
             self.display(e)
-        except Exception as e :
+        except ValueError as e :
+            self.display(e)
+        except Exception as e:
             self.display(e)
         finally:
             self.instructor_memu()
@@ -104,7 +109,7 @@ class Main:
             case '6': self.first_menu()
             case '7': sys.exit(0)
             case _ :
-                self.display('Invalid choice')
+                self.display('invalid input !!!, enter a valid choice 1-7')
                 self.instructor_memu()
 
 
@@ -118,27 +123,27 @@ class Main:
             case '5' : self.first_menu()
             case '6' : sys.exit(0)
             case _ :
-                self.display("invalid choice")
+                self.display('invalid input !!!, enter a valid choice 1-6')
                 self.student_menu()
 
 
     def register_user(self):
         users_input = self.user_options(self.registration_prompt)
-
         match users_input :
             case'1':
                 try:
                     first_name: str = self.user_options("Enter First Name : ")
                     last_name: str = self.user_options("Enter Last Name :")
-                    email: str = self.user_options("Enter Email : ")
-                    self.email = email
-                    password: str = self.user_options("Enter password : ")
-                    self.password = password
+                    self.email: str = self.user_options("Enter Email : ")
+                    self.password : str = self.user_options("Enter password : ")
                     self.instructors.register(first_name, last_name, self.email, self.password)
-                    instructor = self.instructors.find_by_email(self.email)
-                    self.display(f"{instructor.get_email} Registered Successfully. \n your ID is : {instructor.get_instructor_id}")
+                    self.instructor = self.instructors.find_by_email(self.email)
+                    self.display('registration successfully')
+                    self.display(f"{self.instructor.get_email} Registered Successfully. \n your ID is : {self.instructor.get_instructor_id}")
 
                 except InvalidLoginException as e:
+                    self.display(e)
+                except PasswordTooShort as e:
                     self.display(e)
                 except PasswordNotAccepted as e :
                     self.display(e)
@@ -147,20 +152,18 @@ class Main:
                 except ValueError as e:
                     self.display(e)
                 finally:
-                    self.first_menu()
+                    self.register_user()
 
             case '2':
 
                 try:
                     student_first_name: str = self.user_options("Enter First Name : ")
                     last_name: str = self.user_options("Enter Last Name :")
-                    email: str = self.user_options("Enter Email : ")
-                    self.email = email
-                    password: str = self.user_options("Enter password : ")
-                    self.password = password
+                    self.email: str = self.user_options("Enter Email : ")
+                    self.password: str = self.user_options("Enter password : ")
                     self.students.register(student_first_name,last_name,self.email, self.password)
-                    student = self.students.find_by_email(email)
-                    self.display(f"your ID is : {student.get_student_id}")
+                    self.student = self.students.find_by_email(self.email)
+                    self.display(f"your ID is : {self.student.get_student_id}")
 
                 except InvalidLoginException as e:
                     self.display(e)
@@ -168,15 +171,17 @@ class Main:
                     self.display(e)
                 except EmailNotValidError as e:
                     self.display(e)
-                except Exception as e:
+                except PasswordTooShort as e:
+                    self.display(e)
+                except ValueError as e:
                     self.display(e)
                 finally:
-                    self.first_menu()
+                    self.register_user()
             case '3': self.first_menu()
             case '4' : sys.exit(0)
-            case _ : self.display("Invalid input. input a number 1 to five ")
-
-
+            case _ :
+                self.display("Invalid input. input a number 1 to 4")
+                self.first_menu()
 
     def user_login(self):
         self.email = self.user_options("Enter email :")
@@ -206,7 +211,8 @@ class Main:
                         self.display(e)
                     except EmailNotValidError as e :
                         self.display(e)
-                case _ : self.user_login()
+                case _ :
+                    self.user_login()
         except InvalidLoginException as e :
             self.display(e);
         except ValueError as e :
@@ -225,7 +231,7 @@ class Main:
                 self.register_user()
             case '3' : sys.exit(0)
             case _ :
-                self.display('invalid input !!!, enter a valid choice')
+                self.display('invalid input !!!, enter a valid choice 1-3')
                 self.first_menu()
 
     def view_available_courses(self):
